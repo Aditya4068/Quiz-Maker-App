@@ -7,8 +7,7 @@ import 'package:quiz_maker/widgets/quiz_play_widget.dart';
 import 'package:quiz_maker/widgets/widgets.dart';
 
 class PlayQuiz extends StatefulWidget {
-
-  final String quizId; 
+  final String quizId;
   PlayQuiz({this.quizId});
 
   @override
@@ -16,16 +15,16 @@ class PlayQuiz extends StatefulWidget {
 }
 
 int total = 0;
-int _correct =0;
+int _correct = 0;
 int _incorrect = 0;
 int _notAttempted = 0;
 
-class _PlayQuizState extends State<PlayQuiz> {   
-
+class _PlayQuizState extends State<PlayQuiz> {
   DatabaseService databaseService = new DatabaseService();
   QuerySnapshot questionSnapshot;
 
-  QuestionModel getQuestionModelFromDataSnapshot(DocumentSnapshot questionSnapshot){
+  QuestionModel getQuestionModelFromDataSnapshot(
+      DocumentSnapshot questionSnapshot) {
     QuestionModel questionModel = new QuestionModel();
     questionModel.question = questionSnapshot.data["question"];
     List<String> options = [
@@ -43,18 +42,16 @@ class _PlayQuizState extends State<PlayQuiz> {
     questionModel.answered = false;
 
     return questionModel;
-
   }
-
 
   @override
   void initState() {
     print("Quiz Id : ${widget.quizId}");
-    databaseService.getsQuizData(widget.quizId).then((value){
-      questionSnapshot=value;
+    databaseService.getsQuizData(widget.quizId).then((value) {
+      questionSnapshot = value;
       _notAttempted = 0;
-      _correct =0;
-      _incorrect =0;
+      _correct = 0;
+      _incorrect = 0;
       total = questionSnapshot.documents.length;
       setState(() {
         print('$total this is total');
@@ -77,37 +74,42 @@ class _PlayQuizState extends State<PlayQuiz> {
       body: Container(
         child: Column(
           children: <Widget>[
-            questionSnapshot == null ?
-            Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ) :
-            ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal:24),
-              shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
-              itemCount: questionSnapshot.documents.length,
-              itemBuilder: (context,index){
-                return QuizPlayTile(
-                  questionModel: getQuestionModelFromDataSnapshot(questionSnapshot.documents[index]),
-                  index: index,
-                );
-              },
-            ),
+            questionSnapshot == null
+                ? Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 24),
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: questionSnapshot.documents.length,
+                      itemBuilder: (context, index) {
+                        return QuizPlayTile(
+                          questionModel: getQuestionModelFromDataSnapshot(
+                              questionSnapshot.documents[index]),
+                          index: index,
+                        );
+                      },
+                    ),
+                  ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check),
-        onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(
-            builder: (context) => Results(
-              correct: _correct,
-              incorrect: _incorrect,
-              total: total,
-            ),
-          ));
+        onPressed: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Results(
+                  correct: _correct,
+                  incorrect: _incorrect,
+                  total: total,
+                ),
+              ));
         },
       ),
     );
@@ -118,14 +120,13 @@ class QuizPlayTile extends StatefulWidget {
   final QuestionModel questionModel;
   final int index;
   QuizPlayTile({this.questionModel, this.index});
-  
+
   @override
   _QuizPlayTileState createState() => _QuizPlayTileState();
 }
 
 class _QuizPlayTileState extends State<QuizPlayTile> {
-
-  String optionSelected ="";
+  String optionSelected = "";
 
   @override
   Widget build(BuildContext context) {
@@ -134,33 +135,32 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Q${widget.index+1} ${widget.questionModel.question}",
+            "Q${widget.index + 1} ${widget.questionModel.question}",
             style: TextStyle(
               fontSize: 17,
               color: Colors.black87,
             ),
           ),
-          SizedBox(height: 4,),
+          SizedBox(
+            height: 4,
+          ),
           GestureDetector(
-            onTap: (){
-              if(!widget.questionModel.answered){
+            onTap: () {
+              if (!widget.questionModel.answered) {
                 //Correct
-                if(widget.questionModel.option1==widget.questionModel.correctOption){
+                if (widget.questionModel.option1 ==
+                    widget.questionModel.correctOption) {
                   optionSelected = widget.questionModel.option1;
                   widget.questionModel.answered = true;
                   _correct = _correct + 1;
                   _notAttempted = _notAttempted - 1;
-                  setState(() {
-                    
-                  });
-                }else{
+                  setState(() {});
+                } else {
                   optionSelected = widget.questionModel.option1;
                   widget.questionModel.answered = true;
                   _incorrect = _incorrect + 1;
                   _notAttempted = _notAttempted - 1;
-                  setState(() {
-                    
-                  });
+                  setState(() {});
                 }
               }
             },
@@ -171,27 +171,26 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
               optionSelected: optionSelected,
             ),
           ),
-          SizedBox(height: 4,),
+          SizedBox(
+            height: 4,
+          ),
           GestureDetector(
-            onTap: (){
-              if(!widget.questionModel.answered){
+            onTap: () {
+              if (!widget.questionModel.answered) {
                 //Correct
-                if(widget.questionModel.option2==widget.questionModel.correctOption){
+                if (widget.questionModel.option2 ==
+                    widget.questionModel.correctOption) {
                   optionSelected = widget.questionModel.option2;
                   widget.questionModel.answered = true;
                   _correct = _correct + 1;
                   _notAttempted = _notAttempted - 1;
-                  setState(() {
-                    
-                  });
-                }else{
+                  setState(() {});
+                } else {
                   optionSelected = widget.questionModel.option2;
                   widget.questionModel.answered = true;
                   _incorrect = _incorrect + 1;
                   _notAttempted = _notAttempted - 1;
-                  setState(() {
-                    
-                  });
+                  setState(() {});
                 }
               }
             },
@@ -202,27 +201,26 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
               optionSelected: optionSelected,
             ),
           ),
-          SizedBox(height: 4,),
+          SizedBox(
+            height: 4,
+          ),
           GestureDetector(
-            onTap: (){
-              if(!widget.questionModel.answered){
+            onTap: () {
+              if (!widget.questionModel.answered) {
                 //Correct
-                if(widget.questionModel.option3==widget.questionModel.correctOption){
+                if (widget.questionModel.option3 ==
+                    widget.questionModel.correctOption) {
                   optionSelected = widget.questionModel.option3;
                   widget.questionModel.answered = true;
                   _correct = _correct + 1;
                   _notAttempted = _notAttempted - 1;
-                  setState(() {
-                    
-                  });
-                }else{
+                  setState(() {});
+                } else {
                   optionSelected = widget.questionModel.option3;
                   widget.questionModel.answered = true;
                   _incorrect = _incorrect + 1;
                   _notAttempted = _notAttempted - 1;
-                  setState(() {
-                    
-                  });
+                  setState(() {});
                 }
               }
             },
@@ -233,27 +231,26 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
               optionSelected: optionSelected,
             ),
           ),
-          SizedBox(height: 4,),
+          SizedBox(
+            height: 4,
+          ),
           GestureDetector(
-            onTap: (){
-              if(!widget.questionModel.answered){
+            onTap: () {
+              if (!widget.questionModel.answered) {
                 //Correct
-                if(widget.questionModel.option4==widget.questionModel.correctOption){
+                if (widget.questionModel.option4 ==
+                    widget.questionModel.correctOption) {
                   optionSelected = widget.questionModel.option4;
                   widget.questionModel.answered = true;
                   _correct = _correct + 1;
                   _notAttempted = _notAttempted - 1;
-                  setState(() {
-                    
-                  });
-                }else{
+                  setState(() {});
+                } else {
                   optionSelected = widget.questionModel.option4;
                   widget.questionModel.answered = true;
                   _incorrect = _incorrect + 1;
                   _notAttempted = _notAttempted - 1;
-                  setState(() {
-                    
-                  });
+                  setState(() {});
                 }
               }
             },
@@ -264,7 +261,9 @@ class _QuizPlayTileState extends State<QuizPlayTile> {
               optionSelected: optionSelected,
             ),
           ),
-          SizedBox(height: 20,)
+          SizedBox(
+            height: 20,
+          )
         ],
       ),
     );

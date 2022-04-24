@@ -54,12 +54,14 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         actions: <Widget>[
           GestureDetector(
-            onTap: (){
+            onTap: () {
               HelperFunction.saveUserLoggedInDetails(isLoggedIn: false);
               AuthService().signOut();
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context) => SignIn(),
-              ));
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignIn(),
+                  ));
             },
             child: Container(
               alignment: Alignment.center,

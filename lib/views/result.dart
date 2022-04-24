@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quiz_maker/widgets/widgets.dart';
 
 class Results extends StatefulWidget {
-  final int  correct, incorrect,total;
-  const Results({@required this.correct,@required this.incorrect,@required this.total});
+  final int correct, incorrect, total;
+  const Results(
+      {@required this.correct, @required this.incorrect, @required this.total});
 
   @override
   _ResultsState createState() => _ResultsState();
@@ -22,35 +23,36 @@ class _ResultsState extends State<Results> {
             children: <Widget>[
               Text(
                 "${widget.correct}/${widget.total}",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               Text(
-                "You answered ${widget.correct} answers correctly and ${widget.incorrect} answers incorrectly",
+                "You answered ${widget.correct} answers correctly \n and ${widget.incorrect} answers incorrectly",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 14,),
+              SizedBox(
+                height: 14,
+              ),
               GestureDetector(
-                onTap: (){
-                  Navigator.pop(context); 
+                onTap: () {
+                  Navigator.pop(context);
                 },
                 child: blueButton(
                   context: context,
                   label: "Go to Home",
-                  buttonWidth: MediaQuery.of(context).size.width/2,
+                  buttonWidth: MediaQuery.of(context).size.width / 2,
                 ),
               ),
             ],
           ),
         ),
-      ),      
+      ),
     );
   }
 }

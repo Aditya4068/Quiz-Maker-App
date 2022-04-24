@@ -36,6 +36,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: (_isLoggedIn ?? false) ? Home() : SignIn(),
