@@ -66,7 +66,7 @@ class _AddQuestionState extends State<AddQuestion> {
                     TextFormField(
                       validator: (val) => val.isEmpty ? "Enter Question" : null,
                       decoration: InputDecoration(
-                        hintText: "Qestion",
+                        hintText: "Question",
                       ),
                       onChanged: (val) {
                         question = val;
