@@ -112,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                       onTap: () {
                         signUp();
                       },
-                      child: blueButton(context: context, label: "Create Quiz"),
+                      child: blueButton(context: context, label: "Sign Up"),
                     ),
                     SizedBox(
                       height: 18,

@@ -10,7 +10,7 @@ Widget appBar(BuildContext context) {
             style:
                 TextStyle(fontWeight: FontWeight.w600, color: Colors.black54)),
         TextSpan(
-            text: 'Maker',
+            text: 'App',
             style: TextStyle(fontWeight: FontWeight.w600, color: Colors.blue)),
       ],
     ),

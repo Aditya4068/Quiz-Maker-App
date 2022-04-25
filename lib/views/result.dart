@@ -22,14 +22,21 @@ class _ResultsState extends State<Results> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "${widget.correct}/${widget.total}",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                "Your Score:",
+                style: TextStyle(fontSize: 25),
               ),
               SizedBox(
                 height: 8,
               ),
               Text(
-                "You answered ${widget.correct} answers correctly \n and ${widget.incorrect} answers incorrectly",
+                "${widget.correct}/${widget.total}",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+              ),
+              SizedBox(
+                height: 14,
+              ),
+              Text(
+                "Correct Answers: ${widget.correct}\nIncorrect Answers: ${widget.incorrect}\nNot Attempted: ${widget.total - widget.correct - widget.incorrect}",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.grey,
@@ -37,7 +44,7 @@ class _ResultsState extends State<Results> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 14,
+                height: 16,
               ),
               GestureDetector(
                 onTap: () {
