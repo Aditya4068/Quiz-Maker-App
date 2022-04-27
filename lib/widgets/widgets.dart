@@ -38,3 +38,25 @@ Widget blueButton({BuildContext context, String label, buttonWidth}) {
     ),
   );
 }
+
+Widget whiteButton({BuildContext context, String label, buttonWidth}) {
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: 18),
+    // height: 50,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+    ),
+    alignment: Alignment.center,
+    width: buttonWidth != null
+        ? buttonWidth
+        : MediaQuery.of(context).size.width - 48,
+    child: Text(
+      label,
+      style: TextStyle(
+        color: Colors.blue,
+        fontSize: 16,
+      ),
+    ),
+  );
+}
